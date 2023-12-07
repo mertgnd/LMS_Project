@@ -14,5 +14,7 @@ namespace LMS_Project.Data
         public DbSet<ProfessorDbModel> Professors { get; set; }
         public DbSet<CourseDbModel> Courses { get; set; }
         public DbSet<StudentCoursesDbModel> StudentCourses { get; set; }
+        public DbSet<CityDbModel> Cities { get; set; }
+        public DbSet<StreetDbModel> Streets { get; set; }
     }
 }

@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20231207102910_Added_StreetDb_CityDb_And_AddedRelation.cs" />
+    <Compile Remove="Migrations\20231207102910_Added_StreetDb_CityDb_And_AddedRelation.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.22">
