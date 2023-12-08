@@ -74,6 +74,11 @@ namespace LMS_Project.Services.Services
                 throw new Exception($"No existing faculty building to update with ID: {facultyBuildingDb.Id}");
             }
 
+            if (request.StreetId == null)
+            {
+                throw new Exception("Street is required.");
+            }
+
             _mapper.Map(request, facultyBuildingDb);
 
             var facultyBuildingDbResponse = await _facultyBuildingRepository.UpdateAsync(facultyBuildingDb);
