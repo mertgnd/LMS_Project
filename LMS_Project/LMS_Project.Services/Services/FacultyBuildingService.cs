@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LMS_Project.Common.Exceptions;
 using LMS_Project.Core.Models;
 using LMS_Project.Core.Models.Response;
 using LMS_Project.Data.Abstractions;
@@ -27,11 +28,6 @@ namespace LMS_Project.Services.Services
         {
             var facultyBuildingDb = _facultyBuildingRepository.GetAll();
 
-            if (facultyBuildingDb == null)
-            {
-                throw new NullReferenceException(nameof(facultyBuildingDb));
-            }
-
             var result = _mapper.Map<List<FacultyBuilding>>(facultyBuildingDb);
 
             return Task.FromResult(result);
@@ -40,7 +36,7 @@ namespace LMS_Project.Services.Services
         public async Task<FacultyBuildingResponse> GetByIdAsync(Guid id)
         {
             var facultyBuildingDb = await _facultyBuildingRepository.GetByIdAsync(id) ?? 
-                throw new NullReferenceException(nameof(id));
+                throw new NotFoundException($"ID: {id} Faculty Building is not exist!");
 
             return ResponseBuilder(facultyBuildingDb).Result;
         }
@@ -57,7 +53,7 @@ namespace LMS_Project.Services.Services
             }
             else
             {
-                throw new Exception("Street is required.");
+                throw new BadRequestException("Street is required.");
             }
 
             var facultyBuildingDbResponse = await _facultyBuildingRepository.AddAsync(facultyBuildingDb);
@@ -71,12 +67,12 @@ namespace LMS_Project.Services.Services
 
             if (facultyBuildingDb == null)
             {
-                throw new Exception($"No existing faculty building to update with ID: {facultyBuildingDb.Id}");
+                throw new NotFoundException($"No existing faculty building to update with ID: {facultyBuildingDb.Id}");
             }
 
             if (request.StreetId == null)
             {
-                throw new Exception("Street is required.");
+                throw new BadRequestException("Street is required.");
             }
 
             _mapper.Map(request, facultyBuildingDb);
@@ -92,7 +88,7 @@ namespace LMS_Project.Services.Services
 
             if (facultyBuildingDb == null)
             {
-                throw new Exception($"No existing faculty building to delete with ID: {id}");
+                throw new NotFoundException($"No existing faculty building to delete with ID: {id}");
             }
 
             await _facultyBuildingRepository.DeleteAsync(facultyBuildingDb);

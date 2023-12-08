@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using LMS_Project.Common.Exceptions;
 
 namespace LMS_Project.Services.Services
 {
@@ -63,7 +64,7 @@ namespace LMS_Project.Services.Services
 
             if (cityDb == null)
             {
-                throw new Exception("City not found");
+                throw new NotFoundException($"No such existing City found with ID: {id}");
             }
 
             var cityResponse = _mapper.Map<City>(cityDb);
@@ -111,7 +112,7 @@ namespace LMS_Project.Services.Services
 
                 if (streetDbList.Count() != request.StreetIds.Count())
                 {
-                    throw new Exception("Not all received Street ID-s exist in the database!");
+                    throw new BadRequestException("Not all received Street Id-s exist in the database.");
                 }
 
                 foreach (var streetDb in streetDbList)
@@ -133,7 +134,7 @@ namespace LMS_Project.Services.Services
 
             if (existingCityDb == null)
             {
-                throw new Exception("City couldnt found!");
+                throw new NotFoundException($"Id: {request.Id} is not exist in our database!");
             }
 
             existingCityDb.Name = request.Name;
@@ -145,7 +146,7 @@ namespace LMS_Project.Services.Services
 
                 if (cityDbList == null || cityDbList.Count() != request.StreetIds.Count())
                 {
-                    throw new Exception("Not all receive course Id-s exist in the database!");
+                    throw new BadRequestException("Not all received Street Id-s exist in the database.");
                 }
 
                 existingCityDb.Streets = existingCityDb.Streets
@@ -181,7 +182,7 @@ namespace LMS_Project.Services.Services
 
             if (cityDb == null)
             {
-                throw new Exception("City not found");
+                throw new NotFoundException("City not found");
             }
 
             var streets = await _streetRepository.GetStreetsByCityIdAsync(cityDb.Id);

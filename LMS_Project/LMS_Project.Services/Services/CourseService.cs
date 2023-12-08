@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using LMS_Project.Common.Exceptions;
 
 namespace LMS_Project.Services.Services
 {
@@ -54,7 +55,7 @@ namespace LMS_Project.Services.Services
 
             if (courseDb == null)
             {
-                throw new Exception("Course not found");
+                throw new NotFoundException("Course not found");
             }
 
             var course = _mapper.Map<CourseDbModel, Course>(courseDb);
@@ -116,7 +117,7 @@ namespace LMS_Project.Services.Services
 
             if (existingCourseDb == null)
             {
-                throw new Exception("Course not found");
+                throw new NotFoundException("Course not found");
             }
 
             existingCourseDb.Name = request.Name;
@@ -169,7 +170,7 @@ namespace LMS_Project.Services.Services
 
             if (courseDb == null)
             {
-                throw new Exception("Course not found");
+                throw new NotFoundException("Course not found");
             }
 
             var existingStudentCourses = await _studentCourseRepository.GetStudentCoursesByCourseId(courseDb.Id);

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using LMS_Project.Common.Exceptions;
 
 namespace LMS_Project.Services.Services
 {
@@ -63,7 +64,7 @@ namespace LMS_Project.Services.Services
 
             if (professorDb == null)
             {
-                throw new Exception("Professor not found");
+                throw new NotFoundException("Professor not found");
             }
 
             var professorResponse = _mapper.Map<Professor>(professorDb);
@@ -119,7 +120,7 @@ namespace LMS_Project.Services.Services
 
             if (existingProfessorDb == null)
             {
-                throw new Exception("Professor not found");
+                throw new NotFoundException("Professor not found");
             }
 
             existingProfessorDb.FirstName = request.FirstName;
@@ -135,7 +136,7 @@ namespace LMS_Project.Services.Services
 
                 if (coursesDbList == null || coursesDbList.Count() != request.CourseIds.Count())
                 {
-                    throw new Exception("Not all received Course ID-s exist in the database.");
+                    throw new BadRequestException("Not all received Course ID-s exist in the database.");
                 }
 
                 existingProfessorDb.Courses = existingProfessorDb.Courses
@@ -171,7 +172,7 @@ namespace LMS_Project.Services.Services
 
             if (professorDb == null)
             {
-                throw new Exception("Professor not found");
+                throw new NotFoundException("Professor not found");
             }
 
             await _professorRepository.DeleteAsync(id);

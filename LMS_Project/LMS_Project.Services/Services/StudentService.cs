@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using LMS_Project.Common.Exceptions;
 
 namespace LMS_Project.Services.Services
 {
@@ -86,7 +87,7 @@ namespace LMS_Project.Services.Services
 
             if (studentDb == null)
             {
-                throw new Exception($"{id} number student could not be found.");
+                throw new NotFoundException($"{id} number student could not be found.");
             }
 
             var student = _mapper.Map<StudentDbModel, Student>(studentDb);
@@ -129,7 +130,7 @@ namespace LMS_Project.Services.Services
 
                 if (coursesDbList.Count() != request.CourseIds.Count())
                 {
-                    throw new Exception("Not all received Course ID-s exist in the database.");
+                    throw new BadRequestException("Not all received Course ID-s exist in the database.");
                 }
 
                 foreach (var course in coursesDbList)
@@ -155,7 +156,7 @@ namespace LMS_Project.Services.Services
 
             if (existingStudentDb == null)
             {
-                throw new Exception($"Student with id {request.Id} was not found");
+                throw new NotFoundException($"Student with id {request.Id} was not found");
             }
 
             existingStudentDb.FirstName = request.FirstName;
@@ -215,7 +216,7 @@ namespace LMS_Project.Services.Services
 
             if (studentDb == null)
             {
-                throw new Exception("Student not found");
+                throw new NotFoundException("Student not found");
             }
 
             var existingStudentCourses = await _studentCourseRepository.GetStudentCoursesByStudentId(studentDb.Id);

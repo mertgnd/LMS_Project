@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using LMS_Project.Common.Exceptions;
 
 namespace LMS_Project.Services.Services
 {
@@ -50,7 +51,7 @@ namespace LMS_Project.Services.Services
 
             if (streetDb == null)
             {
-                throw new Exception("Street not found");
+                throw new NotFoundException("Street not found");
             }
 
             var street = _mapper.Map<StreetDbModel, Street>(streetDb);
@@ -106,7 +107,7 @@ namespace LMS_Project.Services.Services
 
             if (existingStreetDb == null)
             {
-                throw new Exception("Street not found");
+                throw new NotFoundException("Street not found");
             }
 
             existingStreetDb.Name = request.Name;
@@ -144,7 +145,7 @@ namespace LMS_Project.Services.Services
 
             if (streetDb == null)
             {
-                throw new Exception("Professor not found");
+                throw new NotFoundException("Professor not found");
             }
 
             await _streetRepository.DeleteAsync(id);
