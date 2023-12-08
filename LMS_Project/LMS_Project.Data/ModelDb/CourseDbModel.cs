@@ -24,6 +24,6 @@ namespace LMS_Project.Data.ModelDb
         public Guid? ProfessorId { get; set; }
         [ForeignKey("ProfessorId")]
         public ProfessorDbModel Professor { get; set; }
-        public ICollection<StudentCoursesDbModel>? StudentCourses { get; set; }
+        public ICollection<StudentCoursesDbModel> StudentCourses { get; set; }
     }
 }

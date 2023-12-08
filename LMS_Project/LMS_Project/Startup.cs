@@ -43,12 +43,14 @@ namespace Midenas_Test
             services.AddTransient<IStudentCourseRepository, StudentCourseRepository>();
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<IStreetRepository, StreetRepository>();
+            services.AddTransient<IFacultyBuildingRepository, FacultyBuildingRepository>();
 
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<IProfessorService, ProfessorService>();
             services.AddTransient<ICourseService, CourseService>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IStreetService, StreetService>();
+            services.AddTransient<IFacultyBuildingService, FacultyBuildingService>();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
@@ -155,6 +157,7 @@ namespace Midenas_Test
                 mc.AddProfile(new CourseProfile());
                 mc.AddProfile(new CityProfile());
                 mc.AddProfile(new StreetProfile());
+                mc.AddProfile(new FacultyBuildingProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

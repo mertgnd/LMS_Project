@@ -7,6 +7,16 @@
   <ItemGroup>
     <Compile Remove="Migrations\20231207102910_Added_StreetDb_CityDb_And_AddedRelation.cs" />
     <Compile Remove="Migrations\20231207102910_Added_StreetDb_CityDb_And_AddedRelation.Designer.cs" />
+    <Compile Remove="Migrations\20231207231102_Added_FacultyBuildingDbModel.cs" />
+    <Compile Remove="Migrations\20231207231102_Added_FacultyBuildingDbModel.Designer.cs" />
+    <Compile Remove="Migrations\20231208135234_fixed_FacultyBuilding_Table.cs" />
+    <Compile Remove="Migrations\20231208135234_fixed_FacultyBuilding_Table.Designer.cs" />
+    <Compile Remove="Migrations\20231208135417_fixed_FacultyBuilding_Table2.cs" />
+    <Compile Remove="Migrations\20231208135417_fixed_FacultyBuilding_Table2.Designer.cs" />
+    <Compile Remove="Migrations\20231208135738_Added_FacultyBuildingDbModel_Street_Relations.cs" />
+    <Compile Remove="Migrations\20231208135738_Added_FacultyBuildingDbModel_Street_Relations.Designer.cs" />
+    <Compile Remove="Migrations\20231208141047_mig_FacultyBuilding.cs" />
+    <Compile Remove="Migrations\20231208141047_mig_FacultyBuilding.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
