@@ -14,5 +14,6 @@ namespace LMS_Project.Services.Abstractions
         Task<StudentResponse> AddAsync(StudentRequest student);
         Task<StudentResponse> UpdateAsync(StudentRequest student);
         Task DeleteAsync(Guid id);
+        Task<List<StudentGenderStatistic>> GetStudentGenderStatisticsAsync();
     }
 }

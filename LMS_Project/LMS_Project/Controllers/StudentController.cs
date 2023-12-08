@@ -38,6 +38,13 @@ namespace LMS_Project.Controllers
             return Ok(result);
         }
 
+        [HttpGet("/gender-statistics")]
+        public async Task<IActionResult> GetStudentGenderStatistic()
+        {
+            var result = await _studentService.GetStudentGenderStatisticsAsync();
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddStudent([FromBody] StudentRequest request)
         {

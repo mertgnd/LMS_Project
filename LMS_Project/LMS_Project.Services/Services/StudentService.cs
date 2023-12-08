@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using LMS_Project.Common.Exceptions;
+using LMS_Project.Common.Enums;
+using System.Reflection;
 
 namespace LMS_Project.Services.Services
 {
@@ -226,6 +228,64 @@ namespace LMS_Project.Services.Services
             }
 
             await _studentRepository.DeleteAsync(id);
+        }
+
+        public async Task<List<StudentGenderStatistic>> GetStudentGenderStatisticsAsync()
+        {
+            var studentDbList = await _studentRepository.GetStudentsWithIncludesAsync();
+
+            if (studentDbList == null)
+            {
+                throw new NotFoundException(nameof(studentDbList));
+            }
+
+            var genderTypes = new Dictionary<GenderEnum, int>();
+
+            foreach (var gender in Enum.GetValues(typeof(GenderEnum)))
+            {
+                genderTypes[(GenderEnum)gender] = 0;
+            }
+
+            foreach (var student in studentDbList)
+            {
+                if (student.Gender != null)
+                {
+                    if(!string.IsNullOrEmpty(student.Gender) && 
+                        GenderValues.Values.TryGetValue(student.Gender, out GenderEnum gender))
+                    {
+                        genderTypes[gender]++;
+                    }
+                    else
+                    {
+                        genderTypes[GenderEnum.Unknown]++;
+                    }
+                }
+                else
+                {
+                    genderTypes[GenderEnum.Unknown]++;
+                }
+            }
+
+            var totalStudents = studentDbList.Count;
+
+            var result = new List<StudentGenderStatistic>();
+
+            foreach (var gender in Enum.GetValues(typeof(GenderEnum)))
+            {
+                var genderCount = genderTypes[(GenderEnum)gender];
+                var percentage = ((double)genderCount / totalStudents) * 100;
+
+                var statistic = new StudentGenderStatistic
+                {
+                    Gender = gender.ToString(),
+                    Count = genderCount,
+                    Percentage = Math.Round(percentage, 2)
+                };
+
+                result.Add(statistic);
+            }
+
+            return result;
         }
     }
 }

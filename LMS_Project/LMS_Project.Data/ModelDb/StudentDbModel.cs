@@ -16,6 +16,18 @@ namespace LMS_Project.Data.ModelDb
         [MaxLength(150)]
         [Required]
         public string LastName { get; set; }
+        [MaxLength(150)]
+        [Required]
+        public string EMail { get; set; }
+        [MaxLength(150)]
+        [Required]
+        public string Phone { get; set; }
+        [MaxLength(150)]
+        [Required]
+        public string Gender { get; set; }
+        [MaxLength(150)]
+        [Required]
+        public string DateOfBirth { get; set; }
         public ICollection<StudentCoursesDbModel> StudentCourses { get; set; }
     }
 }
